@@ -34,22 +34,43 @@ const kiwi = new Fruit({
   rating: 10,
   review: "Never been better"
 });
+//////////// To insertMany friuts at once/////
+// Fruit.insertMany([orange, banana, kiwi])
+//   .then(() => {
+//     console.log('Data inserted successfully.');
+//   })
+//   .catch((error) => {
+//     console.error('Error inserting data:', error);
+//   });
 
-Fruit.insertMany([orange, banana, kiwi])
-  .then(() => {
-    console.log('Data inserted successfully.');
+////////////To find friuts/////////
+Fruit.find({})
+  .then((fruits) => {
+     console.log('All fruits:', fruits);
   })
-  .catch((error) => {
-    console.error('Error inserting data:', error);
+  .catch((err) => {
+    console.error('Error finding fruits:', err);
   });
-//
-// Fruit.insertMany([orange, banana, kiwi], function(err){
-//   if (err){
-//     console.log(err)
-//   } else {
-//     console.log("Successfully inserted new friuts to fruitsDB");
-//   }
+
+/////////To get just the names of each fruiton the collection//////////
+  Fruit.find({})
+    .then((fruits) => {
+      // console.log('All fruits:', fruits);
+      fruits.forEach(function(fruit) {
+        console.log(fruit.name);
+      })
+      mongoose.connection.close();
+    })
+    .catch((err) => {
+      console.error('Error finding fruits:', err);
+    });
+
+// Fruit forEach((fruits) => {
+//   const name = fruits.name;
+//   console.log(name);
 // });
+
+
 
 
 //People schema
