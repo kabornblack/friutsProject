@@ -19,11 +19,12 @@ const fruitSchema = new mongoose.Schema({
 const Fruit = mongoose.model("Fruit", fruitSchema);
 
 const fruit = new Fruit({
+  name: "Peach",
   rating: 7,
   review: "Lovely and very nice"
 });
 
-fruit.save();
+// fruit.save();
 
 
 ////////////////////////////////many fruits//////////////////////////////////
@@ -75,7 +76,23 @@ Fruit.find({})
       console.error('Error finding fruits:', err);
     });
 
+// ///////////////////////////////////////To update one document///////////
+Fruit.updateOne({_id: "64650a45b6c0cb4e65a97889"}, {name: "Banana"})
+  .then(() => {
+    console.log("Document updated successfully.");
+  })
+  .catch((error) => {
+    console.error("Error updating document:", error);
+  });
 
+//////////////////////////////////////To delete a document/////////////
+Fruit.deleteOne({_id: "6465046b359ef7985868da0b"})
+  .then(() => {
+    console.log("Document deleted successfully.");
+  })
+  .catch((error) => {
+    console.error("Error deleting document:", error);
+  });
 
 
 //People schema
