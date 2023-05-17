@@ -4,37 +4,46 @@ mongoose.connect("mongodb://127.0.0.1:27017/fruitsDB", { useNewUrlParser: true})
 
 //Fruits schema
 const fruitSchema = new mongoose.Schema({
-  name: String,
-  rating: Number,
+  name: {
+    type: String,
+    required: [true, "Name field is compolsory"]
+  },
+  rating: {
+    type: Number,
+    min: 1,
+    max: 10
+  },
   review: String
 });
 
 const Fruit = mongoose.model("Fruit", fruitSchema);
 
 const fruit = new Fruit({
-  name: "Apple",
   rating: 7,
-  review: "Pretty good for a Fruit"
+  review: "Lovely and very nice"
 });
 
-// fruit.save();
+fruit.save();
 
-const orange = new Fruit({
-  name: "Orange",
-  rating: 7,
-  review: "sour but good for the body"
-});
-const banana = new Fruit({
-  name: "Banan",
-  rating: 9,
-  review: "Best ever"
-});
-const kiwi = new Fruit({
-  name: "Kiwi",
-  rating: 10,
-  review: "Never been better"
-});
-//////////// To insertMany friuts at once/////
+
+////////////////////////////////many fruits//////////////////////////////////
+// const orange = new Fruit({
+//   name: "Orange",
+//   rating: 7,
+//   review: "sour but good for the body"
+// });
+// const banana = new Fruit({
+//   name: "Banan",
+//   rating: 9,
+//   review: "Best ever"
+// });
+// const kiwi = new Fruit({
+//   name: "Kiwi",
+//   rating: 10,
+//   review: "Never been better"
+// });
+
+// //////////// //////////////////////To insertMany friuts at once//////////
 // Fruit.insertMany([orange, banana, kiwi])
 //   .then(() => {
 //     console.log('Data inserted successfully.');
@@ -43,10 +52,11 @@ const kiwi = new Fruit({
 //     console.error('Error inserting data:', error);
 //   });
 
-////////////To find friuts/////////
+// //////////////////////////////////To find friuts/////////////////////
 Fruit.find({})
   .then((fruits) => {
      console.log('All fruits:', fruits);
+     // mongoose.connection.close();
   })
   .catch((err) => {
     console.error('Error finding fruits:', err);
@@ -59,16 +69,11 @@ Fruit.find({})
       fruits.forEach(function(fruit) {
         console.log(fruit.name);
       })
-      mongoose.connection.close();
+      // mongoose.connection.close();
     })
     .catch((err) => {
       console.error('Error finding fruits:', err);
     });
-
-// Fruit forEach((fruits) => {
-//   const name = fruits.name;
-//   console.log(name);
-// });
 
 
 
@@ -86,4 +91,4 @@ const person = new Person({
   age: 37
 });
 
-person.save();
+// person.save();
