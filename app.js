@@ -77,7 +77,52 @@ Fruit.find({})
     });
 
 // ///////////////////////////////////////To update one document///////////
-Fruit.updateOne({_id: "64650a45b6c0cb4e65a97889"}, {name: "Banana"})
+// Fruit.updateOne({_id: "64650a45b6c0cb4e65a97889"}, {name: "Banana"})
+//   .then(() => {
+//     console.log("Document updated successfully.");
+//   })
+//   .catch((error) => {
+//     console.error("Error updating document:", error);
+//   });
+
+//////////////////////////////////////To delete a document/////////////
+// Fruit.deleteOne({_id: "6465046b359ef7985868da0b"})
+//   .then(() => {
+//     console.log("Document deleted successfully.");
+//   })
+//   .catch((error) => {
+//     console.error("Error deleting document:", error);
+//   });
+
+
+//People schema
+const personSchema = new mongoose.Schema({
+  name: String,
+  age: Number,
+  favouriteFruit: fruitSchema
+});
+
+const Person = mongoose.model("Person", personSchema);
+
+const pineapple = new Fruit ({
+  name: "Pineapple",
+  rating: 9,
+  review: "Great fruit."
+});
+const cashew = new Fruit ({
+  name: "Cashew",
+  rating: 6,
+  review: "Not so bad."
+});
+// cashew.save();
+
+const person = new Person({
+  name: "Mat",
+  age: 14,
+  favouriteFruit: pineapple
+});
+
+Person.updateOne({_id: "646545b6e458b76e3bd03bf6"}, {favouriteFruit: cashew})
   .then(() => {
     console.log("Document updated successfully.");
   })
@@ -85,27 +130,12 @@ Fruit.updateOne({_id: "64650a45b6c0cb4e65a97889"}, {name: "Banana"})
     console.error("Error updating document:", error);
   });
 
-//////////////////////////////////////To delete a document/////////////
-Fruit.deleteOne({_id: "6465046b359ef7985868da0b"})
-  .then(() => {
-    console.log("Document deleted successfully.");
-  })
-  .catch((error) => {
-    console.error("Error deleting document:", error);
-  });
-
-
-//People schema
-const personSchema = new mongoose.Schema({
-  name: String,
-  age: Number
-});
-
-const Person = mongoose.model("Person", personSchema);
-
-const person = new Person({
-  name: "John",
-  age: 37
-});
+///////////////////////////To deleteMany entery with name: "John"////////////
+// Person.deleteMany({name: "John"}).then(() => {
+//   console.log("Successfully deleted");
+// })
+// .catch((err) => {
+//   console.log(err);
+// });
 
 // person.save();
